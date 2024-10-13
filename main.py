@@ -71,3 +71,14 @@ for filename in os.listdir(directory):
             new_filepath = os.path.join(directory, new_filename)
             new_doc.save(new_filepath)
             print(f"Processed file saved as: {new_filename}")
+
+# Ask if user wants to delete all files that have a "Prepared" version created
+delete_prepared_files = input("\nWould you like to delete all files that have a 'Prepared' version? (y/n): ")
+if delete_prepared_files.lower() == 'y':
+    for filename in os.listdir(directory):
+        if filename.endswith(".pdf") and "Piano 4 Hands" in filename and "Prepared" in filename:
+            original_filename = filename.replace(" Prepared", "")
+            original_filepath = os.path.join(directory, original_filename + ".pdf")
+            if os.path.exists(original_filepath):
+                os.remove(original_filepath)
+                print(f"Deleted original file: {original_filepath}")
